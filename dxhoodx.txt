@@ -1,0 +1,694 @@
+local antiaimsettings = {
+    AntiAim1 = {
+        enabled = false,
+        AntiAim1Rage = nil
+        },
+        AntiAim2 = {
+            enabled = false,
+            antiYrage = nil,
+            antiZrage = nil
+        },
+        UnderWorldAA = {
+            enabled = false,
+            UnderWorldAARage = nil
+        }
+    }
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if antiaimsettings.UnderWorldAA.enabled == true then 
+            getgenv().YRage = antiaimsettings.UnderWorldAA.UnderWorldAARage
+            old_vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.X, getgenv().YRage, old_vel.Z)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.X, getgenv().YRage, old_vel.Z)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.X, getgenv().YRage, old_vel.Z)
+        end
+    end)
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if antiaimsettings.AntiAim1.enabled == true then 
+    old_vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = -Vector3.new(old_vel.Y, antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.X)
+    wait(0)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.X,  antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.Y)
+    wait(0)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = -Vector3.new(old_vel.Z, antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.X)
+    wait(0)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.Y,  antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.X)
+    wait(0)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = -Vector3.new(old_vel.X, antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.Z)
+    wait(0)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.Y, antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.Z)
+    wait(0)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = -Vector3.new(old_vel.X, antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.Y)
+    wait(0)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.Z, antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.X)
+    wait(0)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = -Vector3.new(old_vel.Y, antiaimsettings.AntiAim1.AntiAim1Rage, old_vel.Z)
+    wait(0)
+end
+end)
+game:GetService("RunService").RenderStepped:Connect(function()
+    if antiaimsettings.AntiAim2.enabled == true then
+old_vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+        game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = -Vector3.new(old_vel.Z, antiaimsettings.AntiAim2.antiYrage, old_vel.Y) --insted of Humanoid use a number if u want to 
+        wait(.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = -Vector3.new(old_vel.X, antiaimsettings.AntiAim2.antiYrage, antiaimsettings.AntiAim2.antiZrage)
+        wait(.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = -Vector3.new(old_vel.X, old_vel.Z, old_vel.Y)
+    end
+end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/alingiaer/dxh/main/esp"))()
+local library =
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/alingiaer/DxHookLib/main/Library.lua"))(
+    {cheatname = "dxh.lua ; premium", gamename = "da hood"}
+)
+library:init()
+local Window =
+    library.NewWindow({title = library.cheatname .. " | " .. library.gamename, size = UDim2.new(0, 450, 0, 600)})
+
+
+local AimingTab = Window:AddTab("main")
+local VisualTab = Window:AddTab("visuals")
+local SettingTab = library:CreateSettingsTab(Window)
+
+
+local AimbotSection = AimingTab:AddSection("camera bot", 1)
+local SilentAimSection = AimingTab:AddSection("silent bot", 2)
+local AntiAiming = AimingTab:AddSection("anti bot", 1)
+local Resolve = AimingTab:AddSection("resolve bot", 2)
+local Raging = AimingTab:AddSection("raging bot", 2)
+local World = VisualTab:AddSection("world visuals", 1)
+local WorldSetting = VisualTab:AddSection("world settings", 2)
+local Esp = VisualTab:AddSection("wallhack visuals", 1)
+_G.Key = Enum.KeyCode.Q
+_G.PredictionVelocity = 0.140
+_G.AimPart = "HumanoidRootPart"
+_G.AirshotFunc = false
+_G.Smoothing = false
+_G.Smoothness = 0.0355
+_G.AutoPrediction = false
+--
+_G.Enabled = nil
+--
+_G.Toggled = nil
+--
+
+
+                        
+    
+        
+        
+
+AimbotSection:AddToggle(
+    {
+        text = "enabled cambot",
+        flag = "1",
+        callback = function(state)
+_G.Enabled = state
+--
+_G.Toggled = state
+   end
+    }
+)
+       function GetClosestPlayer()
+        local closestPlayer
+        local shortestDistance = 138
+
+        for i, v in pairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("LowerTorso") then
+                local pos =  workspace.CurrentCamera:WorldToViewportPoint(v.Character.PrimaryPart.Position)
+                local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(game.Players.LocalPlayer:GetMouse().X, game.Players.LocalPlayer:GetMouse().Y)).magnitude
+                if magnitude < shortestDistance then
+                    closestPlayer = v
+                    shortestDistance = magnitude
+                end
+            end
+        end
+        return closestPlayer
+    end
+
+
+
+    game:GetService("UserInputService").InputBegan:Connect(function(keygo)
+           if (keygo.KeyCode == _G.Key) then
+               Toggled = not Toggled
+               if Toggled then
+               Plr =  GetClosestPlayer()
+end
+         end
+           
+end)
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.Smoothing and _G.Enabled and Toggled == true then
+    local Main = CFrame.new(workspace.CurrentCamera.CFrame.p, Plr.Character[_G.AimPart].Position + Plr.Character[_G.AimPart].Velocity*_G.Predicting)
+                                 workspace.CurrentCamera.CFrame = workspace.CurrentCamera.CFrame:Lerp(Main, _G.Smoothness, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
+                            elseif _G.Smoothing == false and _G.Enabled and Toggled == true then
+    workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, Plr.Character[_G.AimPart].Position + Plr.Character[_G.AimPart].Velocity*_G.Predicting)
+                            end
+
+end)
+task.spawn(function()
+   	while wait() do
+	if _G.AutoPrediction == true then
+        local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+        local split = string.split(pingvalue,'(')
+        local ping = tonumber(split[1])
+        if ping < 130 then
+            _G.Predicting = 0.14737
+        elseif ping < 125 then
+           _G.Predicting = 0.147636
+        elseif ping < 110 then
+            _G.Predicting = 0.147535
+        elseif ping < 105 then
+            _G.Predicting = 0.14535
+        elseif ping < 90 then
+            _G.Predicting = 0.1433333
+        elseif ping < 80 then
+            _G.Predicting = 0.1433392
+        elseif ping < 70 then
+            _G.Predicting = 0.136
+        elseif ping < 60 then
+            _G.Predicting = 0.136
+        elseif ping < 50 then
+            _G.Predicting = 0.1225
+        elseif ping < 40 then
+            _G.Predicting = 0.125
+        end
+	end
+    end
+end)
+
+
+if _G.AirshotFunc == true then
+    
+                if Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
+                    _G.AimPart = _G.AirshotPart
+                else
+                    Plr.Character:WaitForChild("Humanoid").StateChanged:Connect(function(old,new)
+                        if new == Enum.HumanoidStateType.Freefall then
+                        _G.AimPart = _G.AirshotPart
+                        else
+                            _G.AimPart = _G.AimPart
+                        end
+                    end)
+                end
+            end
+if _G.PredictMovement == true then
+                            if _G.Smoothness == true then
+                                --// The part we're going to lerp/smoothen \\--
+                                local Main = CF(Camera.CFrame.p, AimlockTarget.Character[_G.AimPart].Position + AimlockTarget.Character[_G.AimPart].Velocity*PredictionVelocity)
+                                
+                                --// Making it work \\--
+                                Camera.CFrame = Camera.CFrame:Lerp(Main, _G.Smoothing, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
+                            else
+                                Camera.CFrame = CF(Camera.CFrame.p, AimlockTarget.Character[_G.AimPart].Position + AimlockTarget.Character[_G.AimPart].Velocity*PredictionVelocity)
+                            end
+                        elseif _G.PredictMovement == false then 
+                            if _G.Smoothness == true then
+                                --// The part we're going to lerp/smoothen \\--
+                                local Main = CF(Camera.CFrame.p, AimlockTarget.Character[_G.AimPart].Position)
+
+                                --// Making it work \\--
+                                Camera.CFrame = Camera.CFrame:Lerp(Main, _G.Smoothing, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
+                            else
+                                Camera.CFrame = CF(Camera.CFrame.p, AimlockTarget.Character[_G.AimPart].Position)
+                            end
+                        end
+        
+        
+
+
+
+
+AimbotSection:AddList(
+    {
+        text = "hit part",
+        flag = "2",
+        values = {"Head", "UpperTorso", "HumanoidRootPart", "LowerTorso"},
+        callback = function(val)
+            _G.AimPart = val
+        end
+    }
+)
+AimbotSection:AddToggle(
+    {
+        text = "sensivity",
+        flag = "3",
+        callback = function(state)
+            _G.Smoothing = state
+        end
+    }
+)
+
+AimbotSection:AddSlider(
+    {
+        text = "sensivity value",
+        flag = "4",
+        suffix = "",
+        min = 0,
+        max = .1,
+        increment = .001,
+        callback = function(value)
+            _G.Smoothness = value
+        end
+    }
+)
+
+AimbotSection:AddSlider(
+    {
+        text = "predicting velocity",
+        flag = "23",
+        suffix = "",
+        min = -0.2,
+        max = 0.2,
+        increment = .001,
+        callback = function(value)
+            _G.Prediction = value
+        end
+    }
+)
+AimbotSection:AddToggle(
+    {
+        text = "based predicting",
+        flag = "22",
+        callback = function(state)
+            _G.AutoPrediction = state
+        end
+    }
+)
+
+
+   
+
+
+
+
+AntiAiming:AddToggle(
+    {
+        text = "underworld anti hit",
+        flag = "28",
+        callback = function(value)
+  antiaimsettings.UnderWorldAA.enabled = value
+end
+
+    
+    }
+)
+
+AntiAiming:AddSlider(
+    {
+        text = "underworld hitrage - Y",
+        flag = "16",
+        suffix = "",
+        min = -300,
+        max = 300,
+        increment = .1,
+        callback = function(value)
+            antiaimsettings.UnderWorldAA.UnderWorldAARage = value
+        end
+    }
+)
+
+AntiAiming:AddToggle(
+    {
+        text = "randomized cframe",
+        flag = "28",
+        callback = function(value)
+            
+local Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+getgenv().BlatantAA = value
+
+while getgenv().BlatantAA == true  do
+    task.wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = (CFrame.new(Position) + Vector3.new(math.random(-15, 15), math.random(-15, 15), math.random(-15, 15))) * CFrame.Angles(math.rad(math.random(-90, 90)), math.rad(math.random(-90, 90)), math.rad(math.random(-90, 90)))
+end
+end
+    }
+)
+  AntiAiming:AddBox(
+    {
+        text = "view victim",
+        flag = "28",
+        callback = function(value)
+            
+local plr = value
+    if game.Players:FindFirstChild(plr) then
+        if game.Players[plr].Character then
+            game.Workspace:FindFirstChildWhichIsA('Camera').CameraSubject = game.Players:FindFirstChild(plr).Character.HumanoidRootPart
+        end
+    end
+        end
+
+    }
+)  
+ 
+
+
+
+AntiAiming:AddSeparator({text = "desync"})
+AntiAiming:AddToggle(
+    {
+        text = "enabled desync",
+        flag = "300",
+        callback = function(value)
+    
+antiaimsettings.AntiAim1.enabled = value
+    end
+    }
+)
+AntiAiming:AddSlider(
+    {
+        text = "desync rage - Y",
+        flag = "16",
+        suffix = "",
+        min = -300,
+        max = 300,
+        increment = .1,
+        callback = function(value)
+            antiaimsettings.AntiAim1.AntiAim1Rage = value
+        end
+  }
+    
+)    
+AntiAiming:AddToggle(
+    {
+        text = "enabled linearvelocity",
+        flag = "300",
+        callback = function(value)
+    
+antiaimsettings.AntiAim2.enabled = value
+    end
+    }
+)
+    AntiAiming:AddSlider(
+    {
+        text = "linearvelocity rage - Y",
+        flag = "16",
+        suffix = "",
+        min = -300,
+        max = 300,
+        increment = .1,
+        callback = function(value)
+            antiaimsettings.AntiAim2.antiYrage = value
+        end
+  }
+    
+)    
+     AntiAiming:AddSlider(
+    {
+        text = "linearvelocity rage - Z",
+        flag = "16",
+        suffix = "",
+        min = -300,
+        max = 300,
+        increment = .1,
+        callback = function(value)
+            antiaimsettings.AntiAim2.antiZrage = value
+        end
+  }
+    
+)    
+AntiAiming:AddSeparator({text = "show predictor"})
+AntiAiming:AddButton(
+    {
+        text = "show predictor",
+        flag = "28",
+        callback = function(value)
+    local placemarker = Instance.new("Part", game.Workspace)
+
+    function makemarker(Parent, Adornee, Color, Size, Size2)
+        local e = Instance.new("BillboardGui", Parent)
+        e.Name = "PP"
+        e.Adornee = Adornee
+        e.Size = UDim2.new(Size, Size2, Size, Size2)
+        e.AlwaysOnTop = true
+        local a = Instance.new("Frame", e)
+        a.Size = UDim2.new(1, 0, 1, 0)
+        a.BackgroundTransparency = 0
+        a.BackgroundColor3 = Color
+        local g = Instance.new("UICorner", a)
+        g.CornerRadius = UDim.new(50,50)
+        return(e)
+    end
+
+
+
+
+    spawn(function()
+        placemarker.Anchored = true
+        placemarker.CanCollide = false
+        placemarker.Size = Vector3.new(7,7,7)
+        placemarker.Transparency = 1
+        makemarker(placemarker, placemarker, Color3.fromRGB(255,255,255), 0.40, 0)
+    end)    
+
+    
+
+    
+    game:GetService"RunService".RenderStepped:connect(function()
+            placemarker.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position+(game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity*0.12984))
+        
+    end)
+    end
+    }
+)  
+Resolve:AddSeparator({text = "Resolver"})
+Resolve:AddToggle(
+    {
+        text = "enable hitter",
+        flag = "300",
+        callback = function(value)
+
+
+        
+				
+getgenv().targetnameenigger = nil
+local Y = -0.01
+local PredictionVelocity = 0.140
+while task.wait() do
+pcall(function()
+old_vel = game.Players[getgenv().targetnameenigger].Character.HumanoidRootPart.Velocity
+game.Players[getgenv().targetnameenigger].Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.X, Y, old_vel.Z)
+game.Players[getgenv().targetnameenigger].Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.X, Y, old_vel.Z)
+game.Players[getgenv().targetnameenigger].Character.HumanoidRootPart.Velocity = Vector3.new(old_vel.X, Y, old_vel.Z)
+end)
+end
+end
+
+        }
+) 
+Resolve:AddSlider(
+    {
+        text = "hitter -Y angle",
+        flag = "4",
+        suffix = "",
+        min = 0,
+        max = .5,
+        increment = .001,
+        callback = function(value)
+            Y = value
+        end
+        
+    }
+)
+  Resolve:AddBox(
+    {
+        text = "hitter user",
+        flag = "28",
+        default = "asd",
+        callback = function(value)
+    getgenv().targetnameenigger = value
+        end
+
+    }
+)  
+Resolve:AddSlider(
+    {
+        text = "hitter predicting",
+        flag = "4",
+        suffix = "",
+        min = 0,
+        max = .5,
+        increment = .001,
+        callback = function(value)
+            PredictionVelocity = value
+        end
+        
+    }
+)
+Raging:AddSeparator({text = "movement speed"})
+
+
+Raging:AddToggle(
+    {
+        text = "enable speed",
+        flag = "30",
+        callback = function(value)
+            getgenv().cframespeedtoggle = value
+getgenv().speedvalue = nil
+getgenv().cframekey = nil
+function onKeyPress(inputObject, gameProcessedEvent)
+    if inputObject.KeyCode == getgenv().cframekey and gameProcessedEvent == false then
+        if cframespeedtoggle == false then
+            cframespeedtoggle = true
+        elseif cframespeedtoggle == true then
+            cframespeedtoggle = false
+        end
+    end
+end
+
+game:GetService("UserInputService").InputBegan:connect(onKeyPress)
+
+game:GetService("RunService").Heartbeat:Connect(
+    function()
+        if cframespeedtoggle == true then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame +
+                game.Players.LocalPlayer.Character.Humanoid.MoveDirection * speedvalue
+        end
+    end
+)
+            end
+    }
+    
+)  
+Raging:AddSlider(
+    {
+        text = "speed value",
+        flag = "4",
+        suffix = "",
+        min = 0,
+        max = .5,
+        increment = .001,
+        callback = function(value)
+            getgenv().speedvalue = value
+        end
+        
+    }
+)
+Raging:AddButton(
+    {
+        text = "Velocity Guns FIX",
+        flag = "30",
+        callback = function(value)
+          
+
+    for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
+            v:Destroy()
+        end
+    end
+    game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+        repeat
+            wait()
+        until game.Players.LocalPlayer.Character
+        char.ChildAdded:Connect(function(child)
+            if child:IsA("Script") then 
+                wait(0.1)
+                if child:FindFirstChild("LocalScript") then
+                    child.LocalScript:FireServer()
+                end
+            end
+        end)
+    end)
+end
+    }
+    
+)  
+World:AddColor(
+    {
+        text = "ambient #ff",
+        flag = "9",
+        callback = function(color)
+          Light.Ambient = color
+        end
+    }
+)
+
+World:AddColor(
+    {
+        text = "fog #ff",
+        flag = "9",
+        callback = function(color)
+          game.Lighting.FogColor = color
+        end
+    }
+)
+
+WorldSetting:AddSlider(
+     {
+         text = "fog value",
+         flag = "6",
+         suffix = "",
+         min = 1,
+         max = 10000,
+         increment = .1,
+         callback = function(value)
+          game.Lighting.FogEnd = value
+         end
+     }
+ )
+
+World:AddColor(
+    {
+        text = "tint #ff",
+        flag = "9",
+        callback = function(color)
+          Light.ColorCorrection.TintColor = color
+        end
+    }
+)
+
+
+
+Esp:AddToggle(
+    {
+        text = "boxes",
+        flag = "300",
+        callback = function(value)
+
+getgenv().PikaESPSettings.Box = value
+        end
+    }
+)
+Esp:AddToggle(
+    {
+        text = "names",
+        flag = "300",
+        callback = function(value)
+getgenv().PikaESPSettings.Name = value
+
+        end
+    }
+)
+Esp:AddToggle(
+    {
+        text = "tracers",
+        flag = "300",
+        callback = function(value)
+getgenv().PikaESPSettings.Tracers = state
+
+        end
+    }
+)
+Esp:AddToggle(
+    {
+        text = "wall check",
+        flag = "300",
+        callback = function(value)
+     getgenv().PikaESPSettings.VisibleOnly = value
+
+        end
+    }
+)
+Esp:AddSlider(
+    {
+        text = "text size",
+        flag = "4",
+        suffix = "",
+        min = 0,
+        max = 40,
+        increment = .001,
+        callback = function(value)
+            getgenv().PikaESPSettings.TextSize = value
+        end
+    }
+)
