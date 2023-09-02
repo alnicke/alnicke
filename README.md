@@ -1,3 +1,9 @@
+https://user-images.githubusercontent.com/60744119/158351334-22bf6eb0-4e6c-4fe9-8883-56dde9f4dc34.jpg
+
+
+
+
+
 <h1 align="center">Hi 👋, I'm Alnicke(also lawjz)</h1>
 <h3 align="center">Designer,Editor,Programmer,PC/LAPTOP Engineer.</h3>
 <img align="right" alt="Coding" width="400" src="https://64.media.tumblr.com/b2135dd65ea35e2137a79dc0756768ae/37a1c504f4d29524-c5/s540x810/30dcbfa5e959029095b96ff86d63066f7a56f3a8.gifv">
