@@ -1,3 +1,22 @@
+<div align="center">
+
+</div>
+
+```python
+┌──(Alnicke@root)-[~/]
+└─$ cat Alnicke.py
+
+class Alnicke:
+
+def  __social__(self):
+ self.gtb = "https://github.com/alnicke"
+ self.dsc = "polismemuru"
+
+  
+ ┌──(Alnicke@root)-[~/]
+ └─$
+```
+
 <img src="https://user-images.githubusercontent.com/60744119/158351334-22bf6eb0-4e6c-4fe9-8883-56dde9f4dc34.jpg" alt="drawing" width="200" style="max-width: 100%;"><img height="90" src="https://github-production-user-asset-6210df.s3.amazonaws.com/49472785/265229961-3ae21cac-d682-4227-ac90-e4526ffd2e1f.png" alt="Kaspersky Approved" title="Kaspersky Approved"/> <img src="https://www.esrb.org/wp-content/uploads/2019/05/E.svg" alt="Approved from world" title="Approved from world"/> <img height="90" src="https://upload.wikimedia.org/wikipedia/commons/2/2c/MPA_G_RATING_%28block%29.svg" alt="G for General audiences" title="G for General audiences"/>
 
 
